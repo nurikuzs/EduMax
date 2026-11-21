@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Владер — Intellektual Test Platformasi | Nurmuhammad Eshmonov</title>
+    <style>
+        :root {
+            --bg-void: #080704;
+            --card-dark: rgba(18, 15, 7, 0.90);
+            --card-inner: rgba(24, 20, 9, 0.94);
+            --cyan: #eab308;
+            --cyan-bright: #facc15;
+            --cyan-deep: #ca8a04;
+            --text-main: #fefce8;
+            --text-dim: #a8a29e;
+            --danger: #f43f5e;
+            --success: #10b981;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 22% 28%, rgba(234, 179, 8, 0.16), transparent 42%),
+                radial-gradient(circle at 80% 72%, rgba(250, 204, 21, 0.12), transparent 45%),
+                linear-gradient(180deg, rgba(8, 7, 4, 0.74) 0%, rgba(5, 4, 2, 0.92) 100%),
+                url("bg.jpg") center / cover no-repeat fixed,
+                var(--bg-void);
+            color: var(--text-main);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 94px 22px 40px 22px;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(234, 179, 8, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(234, 179, 8, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .vlader-topbar {
+            position: fixed;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 44px);
+            max-width: 1120px;
+            z-index: 999;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 22px;
+            background: rgba(16, 13, 6, 0.82);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(250, 204, 21, 0.34);
+            border-radius: 16px;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.72), 0 0 24px rgba(234, 179, 8, 0.12);
+        }
+
+        .vlader-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .v-nav-btn {
+            width: auto !important;
+            margin: 0 !important;
+            padding: 6px 12px !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+            border-radius: 9px !important;
+            background: transparent !important;
+            color: #e7e5e4 !important;
+            border: 1px solid transparent !important;
+            box-shadow: none !important;
+        }
+
+        .v-nav-btn:hover,
+        .v-nav-btn.active {
+            color: #ffffff !important;
+            background: rgba(234, 179, 8, 0.16) !important;
+            border-color: rgba(250, 204, 21, 0.48) !important;
+            box-shadow: 0 0 14px rgba(234, 179, 8, 0.24) !important;
+        }
+
+        .vlader-center-logo {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fde047;
+            text-shadow: 0 0 18px rgba(250, 204, 21, 0.65);
+            text-align: center;
+        }
+
+        .vlader-founder-mini {
+            text-align: right;
+            font-size: 12px;
+            color: #a8a29e;
+        }
+
+        .vlader-founder-mini b {
+            color: var(--cyan-bright);
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1120px;
+            background: transparent;
+        }
+
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1.55fr 0.95fr;
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        .cyber-left-panel {
+            position: relative;
+            background: linear-gradient(155deg, rgba(22, 18, 8, 0.94) 0%, rgba(9, 8, 4, 0.98) 100%);
+            border: 1.5px solid rgba(234, 179, 8, 0.58);
+            border-radius: 22px;
+            padding: 28px 32px;
+            box-shadow:
+                0 0 0 4px rgba(234, 179, 8, 0.08),
+                0 24px 60px rgba(0, 0, 0, 0.82),
+                0 0 36px rgba(234, 179, 8, 0.18);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cyber-left-panel::before {
+            content: "";
+            position: absolute;
+            inset: 6px;
+            border-radius: 17px;
+            border: 1px solid rgba(250, 204, 21, 0.24);
+            pointer-events: none;
+        }
+
+        .brand-top-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .brand-mark-title {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #fef08a;
+            text-shadow: 0 0 16px rgba(250, 204, 21, 0.45);
+        }
+
+        .hero-headline {
+            margin: 0 0 22px 0;
+            font-size: 40px;
+            line-height: 1.15;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 24px rgba(250, 204, 21, 0.16);
+        }
+
+        .hero-headline span.dash {
+            color: var(--cyan-bright);
+        }
+
+        .hero-bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 18px;
+            align-items: end;
+            margin-top: 12px;
+        }
+
+        .founder-mini-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: rgba(26, 21, 9, 0.88);
+            border: 1px solid rgba(250, 204, 21, 0.28);
+        }
+
+        .founder-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ca8a04, #facc15);
+            color: #0b0903;
+            font-weight: 900;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .founder-role-tag {
+            font-size: 11px;
+            color: #fde047;
+            display: block;
+        }
+
+        .founder-full-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .handle-box {
+            background: #fefce8;
+            color: #141004;
+            border-radius: 12px;
+            padding: 10px 14px;
+            text-align: center;
+            border: 2px solid rgba(234, 179, 8, 0.72);
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
+        }
+
+        .handle-box small {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #422006;
+        }
+
+        .handle-box strong {
+            font-size: 13px;
+            font-weight: 900;
+            color: #a16207;
+        }
+
+        .cyber-right-panel {
+            background: linear-gradient(160deg, rgba(22, 18, 8, 0.94) 0%, rgba(10, 8, 4, 0.98) 100%);
+            border: 1.5px solid rgba(234, 179, 8, 0.48);
+            border-radius: 22px;
+            padding: 28px 26px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.82), 0 0 28px rgba(234, 179, 8, 0.14);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-card-title {
+            margin: 0 0 20px 0;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fefce8;
+        }
+
+        .input-pill-wrap {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a8a29e;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .form-group { margin-bottom: 14px; }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #e7e5e4;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(15, 12, 6, 0.94);
+            border: 1px solid rgba(250, 204, 21, 0.26);
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+            transition: 0.18s;
+        }
+
+        .input-pill-wrap input {
+            padding-left: 40px;
+            border-radius: 12px;
+        }
+
+        textarea { min-height: 75px; resize: vertical; }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.18), 0 0 14px rgba(250, 204, 21, 0.24);
+        }
+
+        button {
+            width: 100%;
+            padding: 13px 20px;
+            background: linear-gradient(90deg, #ca8a04, #facc15);
+            color: #0b0903;
+            border: 1px solid rgba(254, 240, 138, 0.55);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 6px;
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.35);
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 0 26px rgba(250, 204, 21, 0.55);
+        }
+
+        .btn-tg-request {
+            background: rgba(22, 18, 8, 0.92);
+            border: 1px solid rgba(250, 204, 21, 0.36);
+            color: #f5f5f4;
+            font-weight: 600;
+            margin-top: 10px;
+            box-shadow: none;
+        }
+
+        .btn-tg-request:hover {
+            border-color: var(--cyan-bright);
+            background: rgba(34, 28, 12, 0.96);
+            box-shadow: 0 0 16px rgba(234, 179, 8, 0.22);
+        }
+
+        .btn-vlader {
+            background: rgba(12, 10, 5, 0.96);
+            border: 1px solid rgba(250, 204, 21, 0.32);
+            color: #fef08a;
+            letter-spacing: 2px;
+            font-size: 15px;
+            font-weight: 800;
+            margin-top: 10px;
+            box-shadow: none;
+        }
+
+        .btn-vlader:hover {
+            border-color: var(--cyan-bright);
+            box-shadow: 0 0 18px rgba(234, 179, 8, 0.28);
+        }
+
+        .btn-logout {
+            background: linear-gradient(90deg, #e11d48, #be123c);
+            border: 1px solid rgba(251, 113, 133, 0.45);
+            color: #ffffff;
+            width: auto;
+            padding: 9px 18px;
+            font-size: 14px;
+            margin: 0;
+            border-radius: 10px;
+            box-shadow: 0 0 14px rgba(225, 29, 72, 0.35);
+        }
+
+        .btn-danger-sm {
+            background: rgba(244, 63, 94, 0.16);
+            border: 1px solid var(--danger);
+            color: #fda4af;
+            width: auto;
+            padding: 6px 12px;
+            font-size: 12px;
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(5, 4, 2, 0.86);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 460px;
+            background: linear-gradient(160deg, rgba(22, 18, 8, 0.98), rgba(9, 8, 4, 0.99));
+            border: 1.5px solid rgba(234, 179, 8, 0.58);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 25px 65px rgba(0, 0, 0, 0.88), 0 0 32px rgba(234, 179, 8, 0.24);
+        }
+
+        .modal-title {
+            margin: 0 0 12px 0;
+            font-size: 19px;
+            color: var(--cyan-bright);
+        }
+
+        .modal-notice-text {
+            margin: 0 0 18px 0;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: rgba(234, 179, 8, 0.09);
+            border: 1px solid rgba(250, 204, 21, 0.34);
+            color: #fefce8;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 12px;
+        }
+
+        .btn-modal-cancel {
+            background: rgba(20, 16, 7, 0.95);
+            border: 1px solid rgba(168, 162, 158, 0.35);
+            color: #e7e5e4;
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .btn-modal-continue {
+            background: linear-gradient(90deg, #ca8a04, #facc15);
+            border: 1px solid rgba(254, 240, 138, 0.55);
+            color: #0b0903;
+            margin: 0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            box-shadow: 0 0 20px rgba(234, 179, 8, 0.4);
+        }
+
+        .dashboard-container {
+            background: linear-gradient(155deg, rgba(22, 18, 8, 0.94) 0%, rgba(9, 8, 4, 0.98) 100%);
+            border: 1.5px solid rgba(234, 179, 8, 0.50);
+            border-radius: 22px;
+            padding: 30px 34px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.82), 0 0 32px rgba(234, 179, 8, 0.14);
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(234, 179, 8, 0.25);
+            padding-bottom: 18px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        h2, h3 {
+            margin-top: 0;
+            color: #fef08a;
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab-btn {
+            width: auto;
+            margin: 0;
+            padding: 10px 18px;
+            font-size: 14px;
+            border-radius: 10px;
+            background: rgba(15, 12, 6, 0.94);
+            color: #e7e5e4;
+            border: 1px solid rgba(250, 204, 21, 0.26);
+            box-shadow: none;
+        }
+
+        .admin-tab-btn.active {
+            background: linear-gradient(90deg, #ca8a04, #facc15);
+            color: #0b0903;
+            border-color: #fef08a;
+            box-shadow: 0 0 18px rgba(234, 179, 8, 0.4);
+        }
+
+        .admin-box {
+            background: var(--card-inner);
+            border: 1px solid rgba(234, 179, 8, 0.32);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--card-inner);
+            border: 1px solid rgba(234, 179, 8, 0.34);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .stat-card small { color: var(--text-dim); font-size: 13px; }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--cyan-bright);
+            margin-top: 6px;
+            text-shadow: 0 0 16px rgba(250, 204, 21, 0.35);
+        }
+
+        .launcher-box {
+            background: linear-gradient(135deg, rgba(234, 179, 8, 0.16), rgba(18, 15, 7, 0.96));
+            border: 1.5px solid rgba(234, 179, 8, 0.50);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .scoring-info {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0 18px 0;
+        }
+
+        .score-pill {
+            background: rgba(234, 179, 8, 0.13);
+            border: 1px solid rgba(250, 204, 21, 0.40);
+            color: #fef08a;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .group-badge {
+            display: inline-block;
+            background: rgba(234, 179, 8, 0.15);
+            border: 1px solid rgba(250, 204, 21, 0.48);
+            color: #fde047;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .question-card {
+            background: var(--card-inner);
+            border: 1px solid rgba(234, 179, 8, 0.30);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
+        .q-points-tag {
+            background: rgba(234, 179, 8, 0.16);
+            border: 1px solid rgba(250, 204, 21, 0.48);
+            color: #fde047;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 11px 14px;
+            margin-top: 8px;
+            background: rgba(15, 12, 6, 0.92);
+            border: 1px solid rgba(250, 204, 21, 0.20);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .option-label:hover {
+            border-color: var(--cyan-bright);
+            background: rgba(234, 179, 8, 0.13);
+        }
+
+        .option-label input {
+            width: auto;
+            margin-right: 12px;
+            accent-color: var(--cyan);
+            transform: scale(1.2);
+        }
+
+        .review-card {
+            background: var(--card-inner);
+            border: 1px solid rgba(234, 179, 8, 0.24);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-left: 5px solid #57534e;
+        }
+        .review-correct { border-left-color: var(--success); }
+        .review-wrong { border-left-color: var(--danger); }
+
+        .btn-explain {
+            background: linear-gradient(90deg, #ca8a04, #facc15);
+            color: #0b0903;
+            width: auto;
+            padding: 8px 16px;
+            font-size: 13px;
+            margin-top: 10px;
+            font-weight: 800;
+        }
+
+        .explanation-box {
+            margin-top: 12px;
+            background: rgba(234, 179, 8, 0.11);
+            border: 1px solid rgba(250, 204, 21, 0.44);
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #fef08a;
+        }
+
+        .vlader-auth-card {
+            background: var(--card-inner);
+            border: 1.5px solid rgba(234, 179, 8, 0.50);
+            border-radius: 18px;
+            padding: 24px;
+            max-width: 500px;
+            margin: 10px auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            background: var(--card-inner);
+            border: 1px solid rgba(234, 179, 8, 0.28);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(41, 37, 36, 0.85);
+        }
+
+        th {
+            background: rgba(234, 179, 8, 0.18);
+            color: #fef08a;
+            font-size: 14px;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 900px) {
+            body { padding-top: 132px; }
+            .vlader-topbar {
+                top: 8px;
+                width: calc(100% - 24px);
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding: 10px 14px;
+            }
+            .vlader-nav-links, .vlader-founder-mini { justify-content: center; text-align: center; }
+            .split-layout, .grid-2, .grid-3, .grid-4, .modal-actions, .stats-grid, .hero-bottom-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-headline { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="vlader-topbar" id="vladerTopMenu">
+    <nav class="vlader-nav-links">
+        <button type="button" class="v-nav-btn active" id="navHomeBtn" onclick="topMenuGo('home')">Kirish</button>
+        <button type="button" class="v-nav-btn" id="navDashBtn" onclick="topMenuGo('dashboard')">Kabinet</button>
+        <button type="button" class="v-nav-btn" id="navQuizBtn" onclick="topMenuGo('quiz')">Testlar</button>
+    </nav>
+
+    <div class="vlader-center-logo" onclick="topMenuGo('vlader')" style="cursor:pointer;">ВЛАДЕР</div>
+
+    <div class="vlader-founder-mini">
+        Asoschi: <b>Nurmuhammad Eshmonov</b>
+    </div>
+</header>
+
+<!-- HISOB YARATISH UCHUN ESLATMA MODALI -->
+<div id="accountNoticeModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeAccountNoticeModal()">
+    <div class="modal-card">
+        <h3 class="modal-title">Eslatma</h3>
+        <p class="modal-notice-text">
+            Eslatib o'tamiz, siz 2 marta o'z isminga hisob yaratgan bo'lsangiz, 3-marta 5000 so'm to'lov qilishingiz kerak.
+        </p>
+        <div class="modal-actions">
+            <button type="button" class="btn-modal-cancel" onclick="closeAccountNoticeModal()">Bekor qilish</button>
+            <a id="telegramContinueLink" href="https://t.me/THENURIK" target="_blank" rel="noopener noreferrer" class="btn-modal-continue" onclick="closeAccountNoticeModal()">
+                Davom etish
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="main-wrapper">
+    <!-- 1. KIRISH EKRANI -->
+    <div id="authView" class="split-layout">
+        <div class="cyber-left-panel">
+            <div>
+                <div class="brand-top-row">
+                    <svg width="34" height="34" viewBox="0 0 64 64" fill="none">
+                        <path d="M10 18L32 8L54 18V34C54 46 44 54 32 58C20 54 10 46 10 34V18Z" fill="rgba(234,179,8,0.15)" stroke="#eab308" stroke-width="2.5"/>
+                        <path d="M22 26L32 42L42 26" stroke="#fde047" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="brand-mark-title">ВЛАДЕР</div>
+                </div>
+
+                <h1 class="hero-headline">
+                    Владер <span class="dash">—</span> Bilim –<br>
+                    kelajak kafolati
+                </h1>
+            </div>
+
+            <div class="hero-bottom-grid">
+                <div class="founder-mini-card">
+                    <div class="founder-avatar">NE</div>
+                    <div>
+                        <span class="founder-role-tag">Loyiha Asoschisi</span>
+                        <div class="founder-full-name">Nurmuhammad Eshmonov</div>
+                    </div>
+                </div>
+
+                <div class="handle-box">
+                    <small>TELEGRAM</small>
+                    <strong>@THENURIK</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="cyber-right-panel">
+            <div id="loginBox">
+                <h2 class="login-card-title">Akkauntga kirish</h2>
+                <div class="input-pill-wrap">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="loginUser" placeholder="Login" onkeydown="if(event.key==='Enter') tizimgaKirish()">
+                </div>
+                <div class="input-pill-wrap">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter') tizimgaKirish()">
+                </div>
+                <button type="button" onclick="tizimgaKirish()">Akkauntga kirish</button>
+                <button type="button" class="btn-tg-request" onclick="openAccountNoticeModal()">Hisob yaratish uchun</button>
+                <button type="button" class="btn-vlader" onclick="openVladerGate()">ВЛАДЕР</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. SHAXSIY KABINET -->
+    <div id="dashboardView" class="dashboard-container hidden">
+        <div class="top-header">
+            <div>
+                <h2 id="userGreeting" style="margin: 0; font-size: 22px;">Salom!</h2>
+                <div style="margin-top:6px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                    <span class="group-badge" id="userGroupBadge">Guruh: —</span>
+                    <span id="userGradeText" style="color: #fde047; font-size: 14px; font-weight: 600;"></span>
+                    <span style="color: #a8a29e; font-size: 13px;">| Asoschi: <b style="color:#facc15;">Nurmuhammad Eshmonov</b></span>
+                </div>
+            </div>
+            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Akkauntdan chiqish</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <small>Ishlangan testlar</small>
+                <div class="stat-value" id="totalTestsVal">0</div>
+            </div>
+            <div class="stat-card">
+                <small>Umumiy to'plangan ball</small>
+                <div class="stat-value" id="totalPointsVal">0.0</div>
+            </div>
+            <div class="stat-card">
+                <small>O'rtacha foiz</small>
+                <div class="stat-value" id="avgPercentVal">0%</div>
+            </div>
+        </div>
+
+        <div class="launcher-box">
+            <h3 style="margin-bottom: 6px;">Yangi testni boshlash</h3>
+            <p style="font-size: 14px; color: #e7e5e4; margin: 0;">
+                Guruhingiz va sinf darajangizga mos ustozlar testlari bilan bilimingizni tekshiring.
+            </p>
+
+            <div class="scoring-info">
+                <span class="score-pill">1–10 savollar: 0.9 ball</span>
+                <span class="score-pill">11–20 savollar: 1.5 ball</span>
+                <span class="score-pill">21–30 savollar: 2.9 ball</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; align-items: end;">
+                <div>
+                    <label>Fanni tanlang:</label>
+                    <select id="subjectSelect" style="margin: 0;"></select>
+                </div>
+                <button type="button" onclick="testniBoshlash()" style="margin: 0;">Testni Boshlash</button>
+            </div>
+        </div>
+
+        <h3>Shaxsiy natijalar tarixi</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fan</th>
+                    <th>Guruh</th>
+                    <th>To'g'ri javob</th>
+                    <th>Ball</th>
+                    <th>Foiz</th>
+                </tr>
+            </thead>
+            <tbody id="resultsHistoryBody"></tbody>
+        </table>
+    </div>
+
+    <!-- 3. TEST YECHISH -->
+    <div id="quizView" class="dashboard-container hidden">
+        <div class="top-header">
+            <div>
+                <h2 id="activeQuizTitle" style="margin: 0;">Fan testi</h2>
+                <small id="activeQuizMeta" style="color: #a8a29e;">Guruh va sinfga mos savollar</small>
+            </div>
+            <button type="button" class="btn-logout" onclick="openDashboard()">Ortga qaytish</button>
+        </div>
+        <div id="questionsList"></div>
+        <button type="button" onclick="testniYakunlash()">Testni Yakunlash va Natijani Ko'rish</button>
+    </div>
+
+    <!-- 4. TAHLIL VA TUSHUNTIRISH -->
+    <div id="resultView" class="dashboard-container hidden">
+        <div class="top-header">
+            <h2 style="margin: 0;">Test Natijalari va Tahlil</h2>
+            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Akkauntdan chiqish</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <small>To'g'ri javoblar</small>
+                <div class="stat-value" id="resCorrectCount">0 / 0</div>
+            </div>
+            <div class="stat-card">
+                <small>To'plangan Ball</small>
+                <div class="stat-value" id="resTotalScore">0.0</div>
+            </div>
+            <div class="stat-card">
+                <small>O'zlashtirish Foizi</small>
+                <div class="stat-value" id="resPercentVal">0%</div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
+            <button type="button" style="margin:0; background:rgba(15,12,6,0.92); border:1px solid rgba(234,179,8,0.48); color:#fde047; box-shadow:none;" onclick="openDashboard()">← Ortga qaytish (Kabinetga)</button>
+            <button type="button" style="margin:0;" onclick="testniBoshlash()">↻ Yangi test boshlash</button>
+        </div>
+
+        <h3>Savollar tahlili va Tushuntirish</h3>
+        <p style="color: #a8a29e; font-size: 14px;">
+            Xato qilgan yoki tushunmagan savolingiz ostidagi <b>"Tushuntirib ber"</b> tugmasini bosing:
+        </p>
+        <div id="reviewContainer"></div>
+    </div>
+
+    <!-- 5. ВЛАДЕР / USTOZLAR KIRISH OYNASI (KOD: 12344321) -->
+    <div id="vladerAuthView" class="dashboard-container hidden">
+        <div class="top-header">
+            <div>
+                <h2 style="margin: 0; font-size: 22px;">ВЛАДЕР — Boshqaruv Paneli Kirishi</h2>
+                <small style="color: #a8a29e;">Guruhlar, o'quvchilar va testlarni boshqarish kodi</small>
+            </div>
+            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Bosh sahifaga</button>
+        </div>
+
+        <div class="vlader-auth-card">
+            <h3>Boshqaruv kodini kiriting</h3>
+            <p style="color:#e7e5e4; font-size:14px; margin-top:0;">
+                Guruhlar yaratish, o'quvchilarga ism-familiya, login va parol berish hamda test kiritish uchun maxsus kodni kiriting.
+            </p>
+            <div class="form-group">
+                <label>Maxsus boshqaruv kodi:</label>
+                <input type="password" id="vladerAccessCodeInput" placeholder="Maxsus kodni kiriting" onkeydown="if(event.key==='Enter') verifyVladerCode()">
+            </div>
+            <button type="button" onclick="verifyVladerCode()">Boshqaruv paneliga kirish</button>
+        </div>
+    </div>
+
+    <!-- 6. BOSHQARUV PANELI (ВЛАДЕР) -->
+    <div id="adminView" class="dashboard-container hidden">
+        <div class="top-header">
+            <div>
+                <h2 style="margin: 0; font-size: 22px;">Boshqaruv Paneli (ВЛАДЕР)</h2>
+                <small style="color: #fde047;">Guruhlar, O'quvchilar, Ustozlar testlari va Fanlar boshqaruvi</small>
+            </div>
+            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Chiqish</button>
+        </div>
+
+        <div class="admin-tabs">
+            <button type="button" id="tabGroups" class="admin-tab-btn active" onclick="switchAdminTab('groups')">Guruhlar</button>
+            <button type="button" id="tabStudents" class="admin-tab-btn" onclick="switchAdminTab('students')">O'quvchilar</button>
+            <button type="button" id="tabTests" class="admin-tab-btn" onclick="switchAdminTab('tests')">Ustozlar testlari</button>
+            <button type="button" id="tabSubjects" class="admin-tab-btn" onclick="switchAdminTab('subjects')">Fanlar</button>
+        </div>
+
+        <div id="panelGroups">
+            <div class="admin-box">
+                <h3>Yangi guruh yaratish</h3>
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Guruh nomi:</label>
+                        <input type="text" id="newGroupName" placeholder="Masalan: 9-A yoki IT-1">
+                    </div>
+                    <div class="form-group">
+                        <label>Sinf darajasi:</label>
+                        <select id="newGroupGrade">
+                            <option value="boshlangich">1–4 sinflar (Boshlang'ich)</option>
+                            <option value="orta">5–8 sinflar (O'rta)</option>
+                            <option value="yuqori">9–11 sinflar (Yuqori)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Guruh izohi (ixtiyoriy):</label>
+                        <input type="text" id="newGroupNote" placeholder="Masalan: Matematika chuqurlashtirilgan">
+                    </div>
+                </div>
+                <button type="button" onclick="addGroup()">Guruh yaratish</button>
+            </div>
+
+            <div class="admin-box">
+                <h3>Mavjud guruhlar (<span id="groupsCount">0</span>)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Guruh nomi</th>
+                            <th>Sinf darajasi</th>
+                            <th>O'quvchilar soni</th>
+                            <th>Guruh foizi</th>
+                            <th>Izoh</th>
+                            <th>Amal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="groupsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="panelStudents" class="hidden">
+            <div class="admin-box">
+                <h3>O'quvchi hisobi yaratish va guruhga biriktirish</h3>
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label>Ism va Familiya:</label>
+                        <input type="text" id="admStudentName" placeholder="Masalan: Azizbek Karimov">
+                    </div>
+                    <div class="form-group">
+                        <label>Guruh:</label>
+                        <select id="admStudentGroup"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Login:</label>
+                        <input type="text" id="admStudentLogin" placeholder="Masalan: aziz2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Parol:</label>
+                        <input type="text" id="admStudentPass" placeholder="Parol kiriting">
+                    </div>
+                </div>
+                <button type="button" onclick="addStudentToGroup()">O'quvchini guruhga qo'shish</button>
+            </div>
+
+            <div class="admin-box">
+                <h3>Biriktirilgan o'quvchilar ro'yxati</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ism Familiya</th>
+                            <th>Guruh</th>
+                            <th>Login</th>
+                            <th>Testlar</th>
+                            <th>Ball</th>
+                            <th>Foiz</th>
+                            <th>Guruh foizi</th>
+                            <th>Amal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="panelTests" class="hidden">
+            <div class="admin-box">
+                <h3>Ustozlar uchun yangi test qo'shish</h3>
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label>Guruh (ixtiyoriy — barcha guruh uchun):</label>
+                        <select id="adminTestGroup"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sinf darajasi:</label>
+                        <select id="adminTestGrade">
+                            <option value="boshlangich">1–4 sinflar (Boshlang'ich)</option>
+                            <option value="orta">5–8 sinflar (O'rta)</option>
+                            <option value="yuqori">9–11 sinflar (Yuqori)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fan:</label>
+                        <select id="adminTestSubject"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>To'g'ri javob:</label>
+                        <select id="adminCorrectOpt">
+                            <option value="0">A variant</option>
+                            <option value="1">B variant</option>
+                            <option value="2">C variant</option>
+                            <option value="3">D variant</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Savol matni:</label>
+                    <textarea id="adminQuestionText" placeholder="Savolni kiriting..."></textarea>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>A variant:</label><input type="text" id="opt0" placeholder="A variant"></div>
+                    <div class="form-group"><label>B variant:</label><input type="text" id="opt1" placeholder="B variant"></div>
+                    <div class="form-group"><label>C variant:</label><input type="text" id="opt2" placeholder="C variant"></div>
+                    <div class="form-group"><label>D variant:</label><input type="text" id="opt3" placeholder="D variant"></div>
+                </div>
+                <div class="form-group">
+                    <label>Tushuntirish (xato qilganda o'quvchiga ko'rsatiladi):</label>
+                    <textarea id="adminExplanation" placeholder="Nima uchun bu javob to'g'ri ekanligini yozing..."></textarea>
+                </div>
+                <button type="button" onclick="addTeacherQuestion()">Savolni saqlash</button>
+            </div>
+
+            <div class="admin-box">
+                <h3>Kiritilgan ustozlar testlari (<span id="teacherQCount">0</span>)</h3>
+                <div id="teacherQuestionsList"></div>
+            </div>
+        </div>
+
+        <div id="panelSubjects" class="admin-box hidden">
+            <h3>Fanlar ro'yxati</h3>
+            <div style="display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
+                <input type="text" id="newSubjectInput" placeholder="Yangi fan nomi (masalan: Informatika)" style="max-width:340px;">
+                <button type="button" onclick="addSubject()" style="width:auto; margin:0;">Fan qo'shish</button>
+            </div>
+            <div id="subjectsListBox"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const VLADER_CODE = "12344321";
+    const TELEGRAM_ACCOUNT_URL = "https://t.me/THENURIK";
+
+    const DEFAULT_SUBJECTS = [
+        "Matematika",
+        "Ona tili va adabiyot",
+        "Ingliz tili",
+        "Tarix",
+        "Biologiya",
+        "Geografiya",
+        "Fizika"
+    ];
+
+    const DEFAULT_GROUPS = [
+        { id: "grp_default_1", name: "9-A guruh", grade: "yuqori", note: "Asosiy guruh" },
+        { id: "grp_default_2", name: "7-B guruh", grade: "orta", note: "O'rta sinf guruhi" }
+    ];
+
+    const GRADE_LABELS = {
+        boshlangich: "1–4 sinflar (Boshlang'ich)",
+        orta: "5–8 sinflar (O'rta)",
+        yuqori: "9–11 sinflar (Yuqori)"
+    };
+
+    const STORAGE_KEYS = {
+        USERS: "vlader_users_v7",
+        CURRENT_USER: "vlader_current_user_v7",
+        SUBJECTS: "vlader_subjects_v7",
+        GROUPS: "vlader_groups_v7",
+        TEACHER_QS: "vlader_teacher_questions_v7",
+        VLADER_UNLOCKED: "vlader_unlocked_v7"
+    };
+
+    function openAccountNoticeModal() {
+        const linkEl = document.getElementById("telegramContinueLink");
+        if (linkEl) linkEl.href = TELEGRAM_ACCOUNT_URL;
+        document.getElementById("accountNoticeModal").classList.remove("hidden");
+    }
+
+    function closeAccountNoticeModal() {
+        document.getElementById("accountNoticeModal").classList.add("hidden");
+    }
+
+    function getUsers() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || "[]");
+    }
+    function saveUsers(users) {
+        localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+    }
+    function getCurrentUser() {
+        const login = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+        if (!login) return null;
+        return getUsers().find(u => u.login === login) || null;
+    }
+    function setCurrentUser(login) {
+        if (login) localStorage.setItem(STORAGE_KEYS.CURRENT_USER, login);
+        else localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+    }
+    function getSubjects() {
+        const raw = localStorage.getItem(STORAGE_KEYS.SUBJECTS);
+        if (!raw) {
+            localStorage.setItem(STORAGE_KEYS.SUBJECTS, JSON.stringify(DEFAULT_SUBJECTS));
+            return [...DEFAULT_SUBJECTS];
+        }
+        return JSON.parse(raw);
+    }
+    function saveSubjects(list) {
+        localStorage.setItem(STORAGE_KEYS.SUBJECTS, JSON.stringify(list));
+    }
+    function getGroups() {
+        const raw = localStorage.getItem(STORAGE_KEYS.GROUPS);
+        if (!raw) {
+            localStorage.setItem(STORAGE_KEYS.GROUPS, JSON.stringify(DEFAULT_GROUPS));
+            return [...DEFAULT_GROUPS];
+        }
+        return JSON.parse(raw);
+    }
+    function saveGroups(list) {
+        localStorage.setItem(STORAGE_KEYS.GROUPS, JSON.stringify(list));
+    }
+    function getTeacherQuestions() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEYS.TEACHER_QS) || "[]");
+    }
+    function saveTeacherQuestions(qs) {
+        localStorage.setItem(STORAGE_KEYS.TEACHER_QS, JSON.stringify(qs));
+    }
+    function isVladerUnlocked() {
+        return sessionStorage.getItem(STORAGE_KEYS.VLADER_UNLOCKED) === "1";
+    }
+    function setVladerUnlocked(val) {
+        if (val) sessionStorage.setItem(STORAGE_KEYS.VLADER_UNLOCKED, "1");
+        else sessionStorage.removeItem(STORAGE_KEYS.VLADER_UNLOCKED);
+    }
+
+    function hideAllViews() {
+        ["authView", "dashboardView", "quizView", "resultView", "vladerAuthView", "adminView"].forEach(id => {
+            document.getElementById(id).classList.add("hidden");
+        });
+    }
+
+    function setActiveTopNav(key) {
+        ["navHomeBtn", "navDashBtn", "navQuizBtn"].forEach(id => {
+            document.getElementById(id).classList.remove("active");
+        });
+        const map = {
+            home: "navHomeBtn",
+            dashboard: "navDashBtn",
+            quiz: "navQuizBtn"
+        };
+        if (map[key]) document.getElementById(map[key]).classList.add("active");
+    }
+
+    function topMenuGo(target) {
+        const user = getCurrentUser();
+        if (target === "home") {
+            hideAllViews();
+            document.getElementById("authView").classList.remove("hidden");
+            setActiveTopNav("home");
+        } else if (target === "dashboard") {
+            if (!user) {
+                alert("Kabinetga kirish uchun avval login va parol orqali kiring.");
+                hideAllViews();
+                document.getElementById("authView").classList.remove("hidden");
+                setActiveTopNav("home");
+                return;
+            }
+            openDashboard();
+        } else if (target === "quiz") {
+            if (!user) {
+                alert("Test ishlash uchun avval tizimga kiring.");
+                hideAllViews();
+                document.getElementById("authView").classList.remove("hidden");
+                setActiveTopNav("home");
+                return;
+            }
+            if (activeQuizState && activeQuizState.questions.length > 0) {
+                hideAllViews();
+                document.getElementById("quizView").classList.remove("hidden");
+                setActiveTopNav("quiz");
+            } else {
+                openDashboard();
+                alert("Avval fanni tanlab, 'Testni Boshlash' tugmasini bosing.");
+            }
+        } else if (target === "vlader") {
+            openVladerGate();
+        }
+    }
+
+    function tizimgaKirish() {
+        const login = document.getElementById("loginUser").value.trim();
+        const pass = document.getElementById("loginPass").value.trim();
+
+        if (!login || !pass) {
+            alert("Login va parolni kiriting.");
+            return;
+        }
+
+        const user = getUsers().find(u => u.login === login && u.pass === pass);
+        if (!user) {
+            alert("Login yoki parol noto'g'ri. Hisob ВЛАДЕР panelidan guruhga biriktirilgan bo'lishi kerak.");
+            return;
+        }
+
+        setCurrentUser(user.login);
+        openDashboard();
+    }
+
+    function akkauntdanChiqish() {
+        setCurrentUser(null);
+        setVladerUnlocked(false);
+        hideAllViews();
+        document.getElementById("authView").classList.remove("hidden");
+        setActiveTopNav("home");
+    }
+
+    function getUserGroupInfo(user) {
+        const groups = getGroups();
+        const grp = groups.find(g => g.id === user.groupId || g.name === user.groupName);
+        if (grp) {
+            return {
+                id: grp.id,
+                name: grp.name,
+                grade: grp.grade || user.grade || "yuqori"
+            };
+        }
+        return {
+            id: user.groupId || "",
+            name: user.groupName || "Guruh biriktirilmagan",
+            grade: user.grade || "yuqori"
+        };
+    }
+
+    function openDashboard() {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const grpInfo = getUserGroupInfo(user);
+
+        hideAllViews();
+        document.getElementById("dashboardView").classList.remove("hidden");
+        setActiveTopNav("dashboard");
+
+        document.getElementById("userGreeting").textContent = `Salom, ${user.name}!`;
+        document.getElementById("userGroupBadge").textContent = `Guruh: ${grpInfo.name}`;
+        document.getElementById("userGradeText").textContent = `Sinf: ${GRADE_LABELS[grpInfo.grade] || grpInfo.grade}`;
+
+        const results = user.results || [];
+        const totalTests = results.length;
+        const totalPoints = results.reduce((sum, r) => sum + Number(r.score || 0), 0);
+        const avgPercent = totalTests > 0
+            ? Math.round(results.reduce((sum, r) => sum + Number(r.percent || 0), 0) / totalTests)
+            : 0;
+
+        document.getElementById("totalTestsVal").textContent = totalTests;
+        document.getElementById("totalPointsVal").textContent = totalPoints.toFixed(1);
+        document.getElementById("avgPercentVal").textContent = `${avgPercent}%`;
+
+        populateSubjectSelect();
+        renderResultsHistory(results);
+    }
+
+    function populateSubjectSelect() {
+        const select = document.getElementById("subjectSelect");
+        const subjects = getSubjects();
+        select.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join("");
+    }
+
+    function renderResultsHistory(results) {
+        const tbody = document.getElementById("resultsHistoryBody");
+        if (!results.length) {
+            tbody.innerHTML = `<tr><td colspan="5" style="color:#a8a29e; text-align:center;">Hali test ishlanmagan.</td></tr>`;
+            return;
+        }
+        tbody.innerHTML = [...results].reverse().map(r => `
+            <tr>
+                <td>${escapeHtml(r.subject)}</td>
+                <td>${escapeHtml(r.groupName || "—")}</td>
+                <td>${r.correct} / ${r.total}</td>
+                <td>${Number(r.score).toFixed(1)}</td>
+                <td>${r.percent}%</td>
+            </tr>
+        `).join("");
+    }
+
+    function getQuestionPointValue(index) {
+        if (index < 10) return 0.9;
+        if (index < 20) return 1.5;
+        return 2.9;
+    }
+
+    let activeQuizState = null;
+
+    function getStudentSeenQuestionIds(user, subject) {
+        const seenMap = user.seenQuestionIdsBySubject || {};
+        return Array.isArray(seenMap[subject]) ? seenMap[subject] : [];
+    }
+
+    function saveStudentSeenQuestionIds(userLogin, subject, seenIds) {
+        const users = getUsers();
+        const uIdx = users.findIndex(u => u.login === userLogin);
+        if (uIdx === -1) return;
+        users[uIdx].seenQuestionIdsBySubject = users[uIdx].seenQuestionIdsBySubject || {};
+        users[uIdx].seenQuestionIdsBySubject[subject] = Array.from(new Set(seenIds.map(String)));
+        saveUsers(users);
+    }
+
+    function pickNonRepeatingQuestions(pool, seenIds, limit = 30) {
+        const poolMap = new Map(pool.map(q => [String(q.id), q]));
+        const validSeen = seenIds.map(String).filter(id => poolMap.has(id));
+        const seenSet = new Set(validSeen);
+
+        const unseenPool = pool.filter(q => !seenSet.has(String(q.id)));
+        const shuffledUnseen = [...unseenPool].sort(() => Math.random() - 0.5);
+
+        const selected = shuffledUnseen.slice(0, limit);
+        const nextSeen = [...validSeen, ...selected.map(q => String(q.id))];
+
+        if (selected.length < limit && pool.length > selected.length) {
+            const alreadySelectedIds = new Set(selected.map(q => String(q.id)));
+            const remainingPool = pool.filter(q => !alreadySelectedIds.has(String(q.id)));
+            const shuffledRemaining = [...remainingPool].sort(() => Math.random() - 0.5);
+            const needed = Math.min(limit - selected.length, shuffledRemaining.length);
+            const extra = shuffledRemaining.slice(0, needed);
+            selected.push(...extra);
+
+            const resetSeen = extra.map(q => String(q.id));
+            return { selected, nextSeen: resetSeen };
+        }
+
+        return { selected, nextSeen };
+    }
+
+    function testniBoshlash() {
+        const user = getCurrentUser();
+        if (!user) {
+            alert("Avval tizimga kiring.");
+            return;
+        }
+
+        const grpInfo = getUserGroupInfo(user);
+        const subject = document.getElementById("subjectSelect").value;
+        const allSubjectQs = getTeacherQuestions().filter(q => q.subject === subject);
+
+        let pool = allSubjectQs.filter(q => q.groupId && q.groupId === grpInfo.id);
+        if (!pool.length) {
+            pool = allSubjectQs.filter(q => !q.groupId && (!q.grade || q.grade === grpInfo.grade));
+        }
+        if (!pool.length) {
+            pool = allSubjectQs.filter(q => !q.groupId);
+        }
+
+        if (!pool.length) {
+            alert(`"${subject}" fani bo'yicha test topilmadi. ВЛАДЕР panelidan test qo'shing.`);
+            return;
+        }
+
+        const seenIds = getStudentSeenQuestionIds(user, subject);
+        const { selected: shuffled, nextSeen } = pickNonRepeatingQuestions(pool, seenIds, 30);
+        saveStudentSeenQuestionIds(user.login, subject, nextSeen);
+
+        activeQuizState = {
+            subject,
+            groupId: grpInfo.id,
+            groupName: grpInfo.name,
+            grade: grpInfo.grade,
+            questions: shuffled
+        };
+
+        hideAllViews();
+        document.getElementById("quizView").classList.remove("hidden");
+        setActiveTopNav("quiz");
+
+        document.getElementById("activeQuizTitle").textContent = `${subject} — Test`;
+        document.getElementById("activeQuizMeta").textContent =
+            `Guruh: ${grpInfo.name} | Sinf: ${GRADE_LABELS[grpInfo.grade] || grpInfo.grade} | Savollar: ${shuffled.length}`;
+
+        const letters = ["A", "B", "C", "D"];
+        const listEl = document.getElementById("questionsList");
+        listEl.innerHTML = shuffled.map((q, idx) => {
+            const pts = getQuestionPointValue(idx).toFixed(1);
+            const optsHtml = (q.options || []).map((opt, oIdx) => `
+                <label class="option-label">
+                    <input type="radio" name="q_${idx}" value="${oIdx}">
+                    <span><b>${letters[oIdx] || oIdx + 1}:</b> ${escapeHtml(opt)}</span>
+                </label>
+            `).join("");
+
+            return `
+                <div class="question-card">
+                    <div class="q-header">
+                        <div><b>${idx + 1}.</b> ${escapeHtml(q.question)}</div>
+                        <span class="q-points-tag">${pts} ball</span>
+                    </div>
+                    ${optsHtml}
+                </div>
+            `;
+        }).join("");
+    }
+
+    function testniYakunlash() {
+        if (!activeQuizState || !activeQuizState.questions.length) return;
+        const user = getCurrentUser();
+        if (!user) return;
+
+        const qs = activeQuizState.questions;
+        let correctCount = 0;
+        let earnedScore = 0;
+
+        const reviewItems = qs.map((q, idx) => {
+            const pts = getQuestionPointValue(idx);
+            const selectedEl = document.querySelector(`input[name="q_${idx}"]:checked`);
+            const chosen = selectedEl ? Number(selectedEl.value) : -1;
+            const isCorrect = chosen === Number(q.correctIndex);
+            if (isCorrect) {
+                correctCount++;
+                earnedScore += pts;
+            }
+            return {
+                index: idx,
+                question: q.question,
+                options: q.options || [],
+                chosen,
+                correctIndex: Number(q.correctIndex),
+                explanation: q.explanation || "Ushbu savol uchun qo'shimcha tushuntirish kiritilmagan.",
+                points: pts,
+                isCorrect
+            };
+        });
+
+        const total = qs.length;
+        const percent = total > 0 ? Math.round((correctCount / total) * 100) : 0;
+
+        const users = getUsers();
+        const uIdx = users.findIndex(u => u.login === user.login);
+        if (uIdx !== -1) {
+            users[uIdx].results = users[uIdx].results || [];
+            users[uIdx].results.push({
+                subject: activeQuizState.subject,
+                groupName: activeQuizState.groupName,
+                correct: correctCount,
+                total,
+                score: Number(earnedScore.toFixed(1)),
+                percent,
+                date: new Date().toISOString()
+            });
+            saveUsers(users);
+        }
+
+        hideAllViews();
+        document.getElementById("resultView").classList.remove("hidden");
+
+        document.getElementById("resCorrectCount").textContent = `${correctCount} / ${total}`;
+        document.getElementById("resTotalScore").textContent = earnedScore.toFixed(1);
+        document.getElementById("resPercentVal").textContent = `${percent}%`;
+
+        const letters = ["A", "B", "C", "D"];
+        const reviewContainer = document.getElementById("reviewContainer");
+        reviewContainer.innerHTML = reviewItems.map(item => {
+            const chosenText = item.chosen >= 0
+                ? `${letters[item.chosen]}: ${item.options[item.chosen] || ""}`
+                : "Belgilanmagan";
+            const correctText = `${letters[item.correctIndex]}: ${item.options[item.correctIndex] || ""}`;
+
+            return `
+                <div class="review-card ${item.isCorrect ? "review-correct" : "review-wrong"}">
+                    <div style="display:flex; justify-content:space-between; gap:10px;">
+                        <b>${item.index + 1}. ${escapeHtml(item.question)}</b>
+                        <span class="q-points-tag">${item.isCorrect ? "+" + item.points.toFixed(1) : "0.0"} / ${item.points.toFixed(1)} ball</span>
+                    </div>
+                    <p style="margin:8px 0 4px 0; font-size:14px;">
+                        Sizning javobingiz: <b style="color:${item.isCorrect ? "#34d399" : "#fb7185"};">${escapeHtml(chosenText)}</b>
+                    </p>
+                    <p style="margin:0 0 8px 0; font-size:14px;">
+                        To'g'ri javob: <b style="color:#fde047;">${escapeHtml(correctText)}</b>
+                    </p>
+                    <button type="button" class="btn-explain" onclick="toggleExplanation('exp_${item.index}')">
+                        Tushuntirib ber
+                    </button>
+                    <div id="exp_${item.index}" class="explanation-box hidden">
+                        ${escapeHtml(item.explanation)}
+                    </div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    function toggleExplanation(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle("hidden");
+    }
+
+    function openVladerGate() {
+        hideAllViews();
+        setActiveTopNav("");
+        if (isVladerUnlocked()) {
+            openAdminPanel();
+        } else {
+            document.getElementById("vladerAccessCodeInput").value = "";
+            document.getElementById("vladerAuthView").classList.remove("hidden");
+        }
+    }
+
+    function verifyVladerCode() {
+        const code = document.getElementById("vladerAccessCodeInput").value.trim();
+        if (code !== VLADER_CODE) {
+            alert("Boshqaruv kodi noto'g'ri.");
+            return;
+        }
+        setVladerUnlocked(true);
+        openAdminPanel();
+    }
+
+    function openAdminPanel() {
+        hideAllViews();
+        document.getElementById("adminView").classList.remove("hidden");
+        setActiveTopNav("");
+        populateGroupSelects();
+        populateAdminSubjectSelect();
+        renderGroupsTable();
+        renderStudentsTable();
+        renderTeacherQuestionsList();
+        renderSubjectsList();
+    }
+
+    function switchAdminTab(tab) {
+        ["tabGroups", "tabStudents", "tabTests", "tabSubjects"].forEach(id => {
+            document.getElementById(id).classList.remove("active");
+        });
+        ["panelGroups", "panelStudents", "panelTests", "panelSubjects"].forEach(id => {
+            document.getElementById(id).classList.add("hidden");
+        });
+
+        if (tab === "groups") {
+            document.getElementById("tabGroups").classList.add("active");
+            document.getElementById("panelGroups").classList.remove("hidden");
+            renderGroupsTable();
+        } else if (tab === "students") {
+            document.getElementById("tabStudents").classList.add("active");
+            document.getElementById("panelStudents").classList.remove("hidden");
+            populateGroupSelects();
+            renderStudentsTable();
+        } else if (tab === "tests") {
+            document.getElementById("tabTests").classList.add("active");
+            document.getElementById("panelTests").classList.remove("hidden");
+            populateGroupSelects();
+            populateAdminSubjectSelect();
+            renderTeacherQuestionsList();
+        } else if (tab === "subjects") {
+            document.getElementById("tabSubjects").classList.add("active");
+            document.getElementById("panelSubjects").classList.remove("hidden");
+            renderSubjectsList();
+        }
+    }
+
+    function populateGroupSelects() {
+        const groups = getGroups();
+        const studentGrpSel = document.getElementById("admStudentGroup");
+        studentGrpSel.innerHTML = groups.map(g =>
+            `<option value="${escapeHtml(g.id)}">${escapeHtml(g.name)} (${GRADE_LABELS[g.grade] || g.grade})</option>`
+        ).join("");
+
+        const testGrpSel = document.getElementById("adminTestGroup");
+        testGrpSel.innerHTML = `<option value="">Barcha guruhlar (sinf bo'yicha)</option>` + groups.map(g =>
+            `<option value="${escapeHtml(g.id)}">${escapeHtml(g.name)}</option>`
+        ).join("");
+    }
+
+    function addGroup() {
+        const name = document.getElementById("newGroupName").value.trim();
+        const grade = document.getElementById("newGroupGrade").value;
+        const note = document.getElementById("newGroupNote").value.trim();
+
+        if (!name) {
+            alert("Guruh nomini kiriting.");
+            return;
+        }
+
+        const groups = getGroups();
+        if (groups.some(g => g.name.toLowerCase() === name.toLowerCase())) {
+            alert("Bunday nomli guruh allaqachon mavjud.");
+            return;
+        }
+
+        groups.push({
+            id: "grp_" + Date.now(),
+            name,
+            grade,
+            note
+        });
+        saveGroups(groups);
+
+        document.getElementById("newGroupName").value = "";
+        document.getElementById("newGroupNote").value = "";
+
+        populateGroupSelects();
+        renderGroupsTable();
+        alert("Guruh yaratildi!");
+    }
+
+    function deleteGroup(groupId) {
+        const groups = getGroups().filter(g => g.id !== groupId);
+        saveGroups(groups);
+        populateGroupSelects();
+        renderGroupsTable();
+        renderStudentsTable();
+    }
+
+    function getStudentAvgPercent(user) {
+        const res = user.results || [];
+        if (!res.length) return 0;
+        return Math.round(res.reduce((s, r) => s + Number(r.percent || 0), 0) / res.length);
+    }
+
+    function getGroupAvgPercent(grpInfo, allUsers) {
+        const groupMembers = allUsers.filter(u => {
+            const uGrp = getUserGroupInfo(u);
+            if (grpInfo.id && uGrp.id) return uGrp.id === grpInfo.id;
+            return uGrp.name === grpInfo.name;
+        });
+
+        const allGroupResults = groupMembers.flatMap(u => u.results || []);
+        if (!allGroupResults.length) return 0;
+        return Math.round(allGroupResults.reduce((s, r) => s + Number(r.percent || 0), 0) / allGroupResults.length);
+    }
+
+    function renderGroupsTable() {
+        const groups = getGroups();
+        const users = getUsers();
+        document.getElementById("groupsCount").textContent = groups.length;
+        const tbody = document.getElementById("groupsTableBody");
+
+        if (!groups.length) {
+            tbody.innerHTML = `<tr><td colspan="6" style="color:#a8a29e; text-align:center;">Hali guruhlar yaratilmagan.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = groups.map(g => {
+            const count = users.filter(u => u.groupId === g.id || u.groupName === g.name).length;
+            const groupPercent = getGroupAvgPercent({ id: g.id, name: g.name, grade: g.grade }, users);
+            return `
+                <tr>
+                    <td><b>${escapeHtml(g.name)}</b></td>
+                    <td>${GRADE_LABELS[g.grade] || g.grade}</td>
+                    <td>${count} nafar</td>
+                    <td><b>${groupPercent}%</b></td>
+                    <td>${escapeHtml(g.note || "—")}</td>
+                    <td><button type="button" class="btn-danger-sm" onclick="deleteGroup('${escapeJs(g.id)}')">O'chirish</button></td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    function addStudentToGroup() {
+        const name = document.getElementById("admStudentName").value.trim();
+        const groupId = document.getElementById("admStudentGroup").value;
+        const login = document.getElementById("admStudentLogin").value.trim();
+        const pass = document.getElementById("admStudentPass").value.trim();
+
+        if (!name || !groupId || !login || !pass) {
+            alert("Ism-familiya, guruh, login va parolni kiriting.");
+            return;
+        }
+
+        const groups = getGroups();
+        const grp = groups.find(g => g.id === groupId);
+        if (!grp) {
+            alert("Avval guruh tanlang.");
+            return;
+        }
+
+        const users = getUsers();
+        if (users.some(u => u.login.toLowerCase() === login.toLowerCase())) {
+            alert("Bu login allaqachon mavjud.");
+            return;
+        }
+
+        users.push({
+            name,
+            groupId: grp.id,
+            groupName: grp.name,
+            grade: grp.grade,
+            login,
+            pass,
+            results: []
+        });
+        saveUsers(users);
+
+        document.getElementById("admStudentName").value = "";
+        document.getElementById("admStudentLogin").value = "";
+        document.getElementById("admStudentPass").value = "";
+
+        renderGroupsTable();
+        renderStudentsTable();
+        alert(`O'quvchi "${grp.name}" guruhiga biriktirildi!`);
+    }
+
+    function populateAdminSubjectSelect() {
+        const sel = document.getElementById("adminTestSubject");
+        const subjects = getSubjects();
+        sel.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join("");
+    }
+
+    function addTeacherQuestion() {
+        const groupId = document.getElementById("adminTestGroup").value;
+        const grade = document.getElementById("adminTestGrade").value;
+        const subject = document.getElementById("adminTestSubject").value;
+        const correctIndex = Number(document.getElementById("adminCorrectOpt").value);
+        const question = document.getElementById("adminQuestionText").value.trim();
+        const options = [0, 1, 2, 3].map(i => document.getElementById(`opt${i}`).value.trim());
+        const explanation = document.getElementById("adminExplanation").value.trim();
+
+        if (!question || options.some(o => !o)) {
+            alert("Savol matni va barcha 4 ta variantni kiriting.");
+            return;
+        }
+
+        const grp = getGroups().find(g => g.id === groupId);
+        const qs = getTeacherQuestions();
+        qs.push({
+            id: "q_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+            groupId: grp ? grp.id : "",
+            groupName: grp ? grp.name : "",
+            grade,
+            subject,
+            question,
+            options,
+            correctIndex,
+            explanation
+        });
+        saveTeacherQuestions(qs);
+
+        document.getElementById("adminQuestionText").value = "";
+        [0, 1, 2, 3].forEach(i => { document.getElementById(`opt${i}`).value = ""; });
+        document.getElementById("adminExplanation").value = "";
+
+        renderTeacherQuestionsList();
+        alert("Savol muvaffaqiyatli qo'shildi!");
+    }
+
+    function deleteTeacherQuestion(id) {
+        const targetId = String(id);
+        const qs = getTeacherQuestions().filter(q => String(q.id) !== targetId);
+        saveTeacherQuestions(qs);
+
+        const users = getUsers();
+        let usersChanged = false;
+        users.forEach(u => {
+            if (u.seenQuestionIdsBySubject) {
+                Object.keys(u.seenQuestionIdsBySubject).forEach(subj => {
+                    const before = u.seenQuestionIdsBySubject[subj] || [];
+                    const after = before.filter(sid => String(sid) !== targetId);
+                    if (after.length !== before.length) {
+                        u.seenQuestionIdsBySubject[subj] = after;
+                        usersChanged = true;
+                    }
+                });
+            }
+        });
+        if (usersChanged) saveUsers(users);
+
+        renderTeacherQuestionsList();
+    }
+
+    function renderTeacherQuestionsList() {
+        const qs = getTeacherQuestions();
+        document.getElementById("teacherQCount").textContent = qs.length;
+        const box = document.getElementById("teacherQuestionsList");
+        if (!qs.length) {
+            box.innerHTML = `<p style="color:#a8a29e; margin:0;">Hali ustozlar testlari kiritilmagan.</p>`;
+            return;
+        }
+        const letters = ["A", "B", "C", "D"];
+        box.innerHTML = qs.map((q, idx) => `
+            <div style="border-bottom:1px solid #292524; padding:12px 0; display:flex; justify-content:space-between; gap:12px; align-items:flex-start;">
+                <div>
+                    <div style="font-size:12px; color:#fde047; margin-bottom:4px;">
+                        ${escapeHtml(q.subject)} • ${escapeHtml(q.groupName || (GRADE_LABELS[q.grade] || q.grade))} • To'g'ri: ${letters[q.correctIndex] || "A"}
+                    </div>
+                    <div><b>${idx + 1}.</b> ${escapeHtml(q.question)}</div>
+                </div>
+                <button type="button" class="btn-danger-sm" onclick="deleteTeacherQuestion('${escapeJs(q.id)}')">O'chirish</button>
+            </div>
+        `).join("");
+    }
+
+    function renderStudentsTable() {
+        const users = getUsers();
+        const tbody = document.getElementById("studentsTableBody");
+        if (!users.length) {
+            tbody.innerHTML = `<tr><td colspan="8" style="color:#a8a29e; text-align:center;">Hali guruhga biriktirilgan o'quvchilar yo'q.</td></tr>`;
+            return;
+        }
+        tbody.innerHTML = users.map(u => {
+            const grpInfo = getUserGroupInfo(u);
+            const res = u.results || [];
+            const pts = res.reduce((s, r) => s + Number(r.score || 0), 0).toFixed(1);
+            const studentPercent = getStudentAvgPercent(u);
+            const groupPercent = getGroupAvgPercent(grpInfo, users);
+            return `
+                <tr>
+                    <td>${escapeHtml(u.name)}</td>
+                    <td><span class="group-badge">${escapeHtml(grpInfo.name)}</span></td>
+                    <td>${escapeHtml(u.login)}</td>
+                    <td>${res.length}</td>
+                    <td>${pts}</td>
+                    <td><b>${studentPercent}%</b></td>
+                    <td><b>${groupPercent}%</b></td>
+                    <td><button type="button" class="btn-danger-sm" onclick="deleteStudent('${escapeJs(u.login)}')">O'chirish</button></td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    function deleteStudent(login) {
+        const users = getUsers().filter(u => u.login !== login);
+        saveUsers(users);
+        if (getCurrentUser()?.login === login) {
+            setCurrentUser(null);
+        }
+        renderGroupsTable();
+        renderStudentsTable();
+    }
+
+    function addSubject() {
+        const input = document.getElementById("newSubjectInput");
+        const name = input.value.trim();
+        if (!name) return;
+        const subjects = getSubjects();
+        if (!subjects.includes(name)) {
+            subjects.push(name);
+            saveSubjects(subjects);
+        }
+        input.value = "";
+        populateAdminSubjectSelect();
+        renderSubjectsList();
+    }
+
+    function deleteSubject(name) {
+        const subjects = getSubjects().filter(s => s !== name);
+        saveSubjects(subjects);
+        populateAdminSubjectSelect();
+        renderSubjectsList();
+    }
+
+    function renderSubjectsList() {
+        const subjects = getSubjects();
+        const box = document.getElementById("subjectsListBox");
+        box.innerHTML = subjects.map(s => `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:rgba(18,15,7,0.88); border:1px solid rgba(234,179,8,0.24); border-radius:10px; margin-bottom:8px;">
+                <span>${escapeHtml(s)}</span>
+                <button type="button" class="btn-danger-sm" onclick="deleteSubject('${escapeJs(s)}')">O'chirish</button>
+            </div>
+        `).join("");
+    }
+
+    function escapeHtml(str) {
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    function escapeJs(str) {
+        return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    }
+
+    (function initApp() {
+        getSubjects();
+        getGroups();
+        const user = getCurrentUser();
+        if (user) {
+            openDashboard();
+        } else {
+            hideAllViews();
+            document.getElementById("authView").classList.remove("hidden");
+            setActiveTopNav("home");
+        }
+    })();
+</script>
+</body>
+</html>
