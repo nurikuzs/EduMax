@@ -386,6 +386,17 @@
             box-shadow: 0 0 14px rgba(225, 29, 72, 0.35);
         }
 
+        .btn-edit-sm {
+            background: rgba(234, 179, 8, 0.16);
+            border: 1px solid rgba(250, 204, 21, 0.55);
+            color: #fef08a;
+            width: auto;
+            padding: 6px 10px;
+            font-size: 12px;
+            margin: 0;
+            box-shadow: none;
+        }
+
         .btn-danger-sm {
             background: rgba(244, 63, 94, 0.16);
             border: 1px solid var(--danger);
@@ -754,6 +765,27 @@
     </div>
 </div>
 
+<!-- O'QUVCHI LOGIN VA PAROLINI O'ZGARTIRISH MODALI (ВЛАДЕР) -->
+<div id="editCredentialsModal" class="modal-backdrop hidden" onclick="if(event.target===this) closeEditCredentialsModal()">
+    <div class="modal-card">
+        <h3 class="modal-title">Hisob login va parolini o'zgartirish</h3>
+        <p id="editCredStudentLabel" style="color:#fde047; font-size:14px; margin:0 0 14px 0;"></p>
+        <input type="hidden" id="editCredTargetLogin">
+        <div class="form-group">
+            <label>Yangi Login:</label>
+            <input type="text" id="editCredNewLogin" placeholder="Yangi login kiriting">
+        </div>
+        <div class="form-group">
+            <label>Yangi Parol:</label>
+            <input type="text" id="editCredNewPass" placeholder="Yangi parol kiriting">
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn-modal-cancel" onclick="closeEditCredentialsModal()">Bekor qilish</button>
+            <button type="button" onclick="saveStudentCredentials()" style="margin:0;">Saqlash</button>
+        </div>
+    </div>
+</div>
+
 <div class="main-wrapper">
     <!-- 1. KIRISH EKRANI -->
     <div id="authView" class="split-layout">
@@ -791,7 +823,7 @@
 
         <div class="cyber-right-panel">
             <div id="loginBox">
-                <h2 class="login-card-title">Akkauntga kirish</h2>
+                <h2 class="login-card-title">Hisobga kirish</h2>
                 <div class="input-pill-wrap">
                     <span class="input-icon">👤</span>
                     <input type="text" id="loginUser" placeholder="Login" onkeydown="if(event.key==='Enter') tizimgaKirish()">
@@ -800,7 +832,7 @@
                     <span class="input-icon">🔒</span>
                     <input type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter') tizimgaKirish()">
                 </div>
-                <button type="button" onclick="tizimgaKirish()">Akkauntga kirish</button>
+                <button type="button" onclick="tizimgaKirish()">Hisobga kirish</button>
                 <button type="button" class="btn-tg-request" onclick="openAccountNoticeModal()">Hisob yaratish uchun</button>
                 <button type="button" class="btn-vlader" onclick="openVladerGate()">ВЛАДЕР</button>
             </div>
@@ -818,7 +850,7 @@
                     <span style="color: #a8a29e; font-size: 13px;">| Asoschi: <b style="color:#facc15;">Nurmuhammad Eshmonov</b></span>
                 </div>
             </div>
-            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Akkauntdan chiqish</button>
+            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Hisobdan chiqish</button>
         </div>
 
         <div class="stats-grid">
@@ -889,7 +921,7 @@
     <div id="resultView" class="dashboard-container hidden">
         <div class="top-header">
             <h2 style="margin: 0;">Test Natijalari va Tahlil</h2>
-            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Akkauntdan chiqish</button>
+            <button type="button" class="btn-logout" onclick="akkauntdanChiqish()">Hisobdan chiqish</button>
         </div>
 
         <div class="stats-grid">
@@ -1003,26 +1035,27 @@
 
         <div id="panelStudents" class="hidden">
             <div class="admin-box">
-                <h3>O'quvchi hisobi yaratish va guruhga biriktirish</h3>
-                <div class="grid-4">
+                <h3>O'quvchilarni bir yo'la ko'plab qo'shish (avtomatik login va parol)</h3>
+                <div class="grid-2">
                     <div class="form-group">
-                        <label>Ism va Familiya:</label>
-                        <input type="text" id="admStudentName" placeholder="Masalan: Azizbek Karimov">
+                        <label>Guruhni tanlang:</label>
+                        <select id="admStudentGroup" onchange="syncBulkGradeWithGroup()"></select>
                     </div>
                     <div class="form-group">
-                        <label>Guruh:</label>
-                        <select id="admStudentGroup"></select>
-                    </div>
-                    <div class="form-group">
-                        <label>Login:</label>
-                        <input type="text" id="admStudentLogin" placeholder="Masalan: aziz2026">
-                    </div>
-                    <div class="form-group">
-                        <label>Parol:</label>
-                        <input type="text" id="admStudentPass" placeholder="Parol kiriting">
+                        <label>Sinf darajasi:</label>
+                        <select id="admStudentGrade">
+                            <option value="boshlangich">1–4 sinflar (Boshlang'ich)</option>
+                            <option value="orta">5–8 sinflar (O'rta)</option>
+                            <option value="yuqori">9–11 sinflar (Yuqori)</option>
+                        </select>
                     </div>
                 </div>
-                <button type="button" onclick="addStudentToGroup()">O'quvchini guruhga qo'shish</button>
+                <div class="form-group">
+                    <label>O'quvchilar ro'yxati (har birini yangi qatordan kiriting):</label>
+                    <textarea id="admBulkStudentsInput" style="min-height:130px;" placeholder="Masalan:&#10;Ali Valiyev&#10;Malika Karimova&#10;Jasur Rustamov"></textarea>
+                </div>
+                <button type="button" onclick="addStudentsBulk()">Barcha o'quvchilarni qo'shish va login/parol yaratish</button>
+                <div id="bulkCreatedSummary" style="margin-top:14px;"></div>
             </div>
 
             <div class="admin-box">
@@ -1033,6 +1066,7 @@
                             <th>Ism Familiya</th>
                             <th>Guruh</th>
                             <th>Login</th>
+                            <th>Parol</th>
                             <th>Testlar</th>
                             <th>Ball</th>
                             <th>Foiz</th>
@@ -1096,9 +1130,7 @@
                 <h3>Kiritilgan ustozlar testlari (<span id="teacherQCount">0</span>)</h3>
                 <div id="teacherQuestionsList"></div>
             </div>
-        </div>
-
-        <div id="panelSubjects" class="admin-box hidden">
+        </div><div id="panelSubjects" class="admin-box hidden">
             <h3>Fanlar ro'yxati</h3>
             <div style="display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
                 <input type="text" id="newSubjectInput" placeholder="Yangi fan nomi (masalan: Informatika)" style="max-width:340px;">
@@ -1109,7 +1141,29 @@
     </div>
 </div>
 
-<script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import {
+        getFirestore,
+        collection,
+        doc,
+        getDocs,
+        setDoc,
+        deleteDoc
+    } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyD_lFL1XtzBSpGJhozu0eE-tmj2MilM60c",
+        authDomain: "edumax-86142.firebaseapp.com",
+        projectId: "edumax-86142",
+        storageBucket: "edumax-86142.firebasestorage.app",
+        messagingSenderId: "1008546958686",
+        appId: "1:1008546958686:web:edumax-web"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const VLADER_CODE = "12344321";
     const TELEGRAM_ACCOUNT_URL = "https://t.me/THENURIK";
 
@@ -1143,6 +1197,139 @@
         VLADER_UNLOCKED: "vlader_unlocked_v7"
     };
 
+    function subjectDocId(name) {
+        return encodeURIComponent(String(name).trim().toLowerCase());
+    }
+
+    async function syncAllFromFirestore() {
+        try {
+            const [usersSnap, groupsSnap, subjectsSnap, qsSnap] = await Promise.all([
+                getDocs(collection(db, "users")),
+                getDocs(collection(db, "groups")),
+                getDocs(collection(db, "subjects")),
+                getDocs(collection(db, "questions"))
+            ]);
+
+            const users = [];
+            usersSnap.forEach(d => {
+                const data = d.data();
+                users.push({ ...data, login: data.login || d.id });
+            });
+            localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+
+            if (!groupsSnap.empty) {
+                const groups = [];
+                groupsSnap.forEach(d => {
+                    const data = d.data();
+                    groups.push({ ...data, id: data.id || d.id });
+                });
+                localStorage.setItem(STORAGE_KEYS.GROUPS, JSON.stringify(groups));
+            } else {
+                localStorage.setItem(STORAGE_KEYS.GROUPS, JSON.stringify(DEFAULT_GROUPS));
+                await Promise.all(
+                    DEFAULT_GROUPS.map(g => setDoc(doc(db, "groups", g.id), g, { merge: true }))
+                );
+            }
+
+            if (!subjectsSnap.empty) {
+                const subjects = [];
+                subjectsSnap.forEach(d => {
+                    const data = d.data();
+                    if (data && data.name) subjects.push(data.name);
+                });
+                localStorage.setItem(STORAGE_KEYS.SUBJECTS, JSON.stringify(subjects));
+            } else {
+                localStorage.setItem(STORAGE_KEYS.SUBJECTS, JSON.stringify(DEFAULT_SUBJECTS));
+                await Promise.all(
+                    DEFAULT_SUBJECTS.map(name =>
+                        setDoc(doc(db, "subjects", subjectDocId(name)), { name }, { merge: true })
+                    )
+                );
+            }
+
+            const questions = [];
+            qsSnap.forEach(d => {
+                const data = d.data();
+                questions.push({ ...data, id: data.id || d.id });
+            });
+            localStorage.setItem(STORAGE_KEYS.TEACHER_QS, JSON.stringify(questions));
+        } catch (err) {
+            console.warn("Firestore bilan sinxronlashda xatolik:", err);
+        }
+    }
+
+    async function saveUserToFirestore(user) {
+        if (!user || !user.login) return;
+        try {
+            await setDoc(doc(db, "users", String(user.login)), user, { merge: true });
+        } catch (err) {
+            console.warn("Hisobni Firestore'ga saqlashda xatolik:", err);
+        }
+    }
+
+    async function deleteUserFromFirestore(login) {
+        if (!login) return;
+        try {
+            await deleteDoc(doc(db, "users", String(login)));
+        } catch (err) {
+            console.warn("Hisobni Firestore'dan o'chirishda xatolik:", err);
+        }
+    }
+
+    async function saveGroupToFirestore(group) {
+        if (!group || !group.id) return;
+        try {
+            await setDoc(doc(db, "groups", String(group.id)), group, { merge: true });
+        } catch (err) {
+            console.warn("Guruhni Firestore'ga saqlashda xatolik:", err);
+        }
+    }
+
+    async function deleteGroupFromFirestore(groupId) {
+        if (!groupId) return;
+        try {
+            await deleteDoc(doc(db, "groups", String(groupId)));
+        } catch (err) {
+            console.warn("Guruhni Firestore'dan o'chirishda xatolik:", err);
+        }
+    }
+
+    async function saveSubjectToFirestore(name) {
+        if (!name) return;
+        try {
+            await setDoc(doc(db, "subjects", subjectDocId(name)), { name }, { merge: true });
+        } catch (err) {
+            console.warn("Fanni Firestore'ga saqlashda xatolik:", err);
+        }
+    }
+
+    async function deleteSubjectFromFirestore(name) {
+        if (!name) return;
+        try {
+            await deleteDoc(doc(db, "subjects", subjectDocId(name)));
+        } catch (err) {
+            console.warn("Fanni Firestore'dan o'chirishda xatolik:", err);
+        }
+    }
+
+    async function saveQuestionToFirestore(q) {
+        if (!q || !q.id) return;
+        try {
+            await setDoc(doc(db, "questions", String(q.id)), q, { merge: true });
+        } catch (err) {
+            console.warn("Savolni Firestore'ga saqlashda xatolik:", err);
+        }
+    }
+
+    async function deleteQuestionFromFirestore(id) {
+        if (!id) return;
+        try {
+            await deleteDoc(doc(db, "questions", String(id)));
+        } catch (err) {
+            console.warn("Savolni Firestore'dan o'chirishda xatolik:", err);
+        }
+    }
+
     function openAccountNoticeModal() {
         const linkEl = document.getElementById("telegramContinueLink");
         if (linkEl) linkEl.href = TELEGRAM_ACCOUNT_URL;
@@ -1151,6 +1338,65 @@
 
     function closeAccountNoticeModal() {
         document.getElementById("accountNoticeModal").classList.add("hidden");
+    }
+
+    function openEditCredentialsModal(login) {
+        const user = getUsers().find(u => u.login === login);
+        if (!user) return;
+        document.getElementById("editCredTargetLogin").value = user.login;
+        document.getElementById("editCredStudentLabel").textContent = `O'quvchi: ${user.name} (${user.groupName || "Guruhsiz"})`;
+        document.getElementById("editCredNewLogin").value = user.login;
+        document.getElementById("editCredNewPass").value = user.pass;
+        document.getElementById("editCredentialsModal").classList.remove("hidden");
+    }
+
+    function closeEditCredentialsModal() {
+        document.getElementById("editCredentialsModal").classList.add("hidden");
+    }
+
+    async function saveStudentCredentials() {
+        const oldLogin = document.getElementById("editCredTargetLogin").value.trim();
+        const newLogin = document.getElementById("editCredNewLogin").value.trim();
+        const newPass = document.getElementById("editCredNewPass").value.trim();
+
+        if (!newLogin || !newPass) {
+            alert("Yangi login va yangi parolni kiriting.");
+            return;
+        }
+
+        const users = getUsers();
+        const idx = users.findIndex(u => u.login === oldLogin);
+        if (idx === -1) return;
+
+        if (newLogin.toLowerCase() !== oldLogin.toLowerCase()) {
+            const exists = users.some((u, i) => i !== idx && u.login.toLowerCase() === newLogin.toLowerCase());
+            if (exists) {
+                alert("Bu login boshqa hisobda band. Boshqa login tanlang.");
+                return;
+            }
+        }
+
+        const updatedUser = {
+            ...users[idx],
+            login: newLogin,
+            pass: newPass
+        };
+
+        users[idx] = updatedUser;
+        saveUsers(users);
+
+        if (newLogin !== oldLogin) {
+            await deleteUserFromFirestore(oldLogin);
+        }
+        await saveUserToFirestore(updatedUser);
+
+        if (getCurrentUser()?.login === oldLogin) {
+            setCurrentUser(newLogin);
+        }
+
+        closeEditCredentialsModal();
+        renderStudentsTable();
+        alert("Login va parol yangilandi!");
     }
 
     function getUsers() {
@@ -1222,7 +1468,8 @@
         if (map[key]) document.getElementById(map[key]).classList.add("active");
     }
 
-    function topMenuGo(target) {
+    async function topMenuGo(target) {
+        await syncAllFromFirestore();
         const user = getCurrentUser();
         if (target === "home") {
             hideAllViews();
@@ -1230,7 +1477,7 @@
             setActiveTopNav("home");
         } else if (target === "dashboard") {
             if (!user) {
-                alert("Kabinetga kirish uchun avval login va parol orqali kiring.");
+                alert("Kabinetga kirish uchun avval login va parol orqali hisobga kiring.");
                 hideAllViews();
                 document.getElementById("authView").classList.remove("hidden");
                 setActiveTopNav("home");
@@ -1239,7 +1486,7 @@
             openDashboard();
         } else if (target === "quiz") {
             if (!user) {
-                alert("Test ishlash uchun avval tizimga kiring.");
+                alert("Test ishlash uchun avval hisobga kiring.");
                 hideAllViews();
                 document.getElementById("authView").classList.remove("hidden");
                 setActiveTopNav("home");
@@ -1258,7 +1505,7 @@
         }
     }
 
-    function tizimgaKirish() {
+    async function tizimgaKirish() {
         const login = document.getElementById("loginUser").value.trim();
         const pass = document.getElementById("loginPass").value.trim();
 
@@ -1267,6 +1514,7 @@
             return;
         }
 
+        await syncAllFromFirestore();
         const user = getUsers().find(u => u.login === login && u.pass === pass);
         if (!user) {
             alert("Login yoki parol noto'g'ri. Hisob ВЛАДЕР panelidan guruhga biriktirilgan bo'lishi kerak.");
@@ -1292,7 +1540,7 @@
             return {
                 id: grp.id,
                 name: grp.name,
-                grade: grp.grade || user.grade || "yuqori"
+                grade: user.grade || grp.grade || "yuqori"
             };
         }
         return {
@@ -1367,13 +1615,14 @@
         return Array.isArray(seenMap[subject]) ? seenMap[subject] : [];
     }
 
-    function saveStudentSeenQuestionIds(userLogin, subject, seenIds) {
+    async function saveStudentSeenQuestionIds(userLogin, subject, seenIds) {
         const users = getUsers();
         const uIdx = users.findIndex(u => u.login === userLogin);
         if (uIdx === -1) return;
         users[uIdx].seenQuestionIdsBySubject = users[uIdx].seenQuestionIdsBySubject || {};
         users[uIdx].seenQuestionIdsBySubject[subject] = Array.from(new Set(seenIds.map(String)));
         saveUsers(users);
+        await saveUserToFirestore(users[uIdx]);
     }
 
     function pickNonRepeatingQuestions(pool, seenIds, limit = 30) {
@@ -1402,10 +1651,11 @@
         return { selected, nextSeen };
     }
 
-    function testniBoshlash() {
+    async function testniBoshlash() {
+        await syncAllFromFirestore();
         const user = getCurrentUser();
         if (!user) {
-            alert("Avval tizimga kiring.");
+            alert("Avval hisobga kiring.");
             return;
         }
 
@@ -1428,7 +1678,7 @@
 
         const seenIds = getStudentSeenQuestionIds(user, subject);
         const { selected: shuffled, nextSeen } = pickNonRepeatingQuestions(pool, seenIds, 30);
-        saveStudentSeenQuestionIds(user.login, subject, nextSeen);
+        await saveStudentSeenQuestionIds(user.login, subject, nextSeen);
 
         activeQuizState = {
             subject,
@@ -1469,7 +1719,7 @@
         }).join("");
     }
 
-    function testniYakunlash() {
+    async function testniYakunlash() {
         if (!activeQuizState || !activeQuizState.questions.length) return;
         const user = getCurrentUser();
         if (!user) return;
@@ -1516,6 +1766,7 @@
                 date: new Date().toISOString()
             });
             saveUsers(users);
+            await saveUserToFirestore(users[uIdx]);
         }
 
         hideAllViews();
@@ -1561,7 +1812,8 @@
         if (el) el.classList.toggle("hidden");
     }
 
-    function openVladerGate() {
+    async function openVladerGate() {
+        await syncAllFromFirestore();
         hideAllViews();
         setActiveTopNav("");
         if (isVladerUnlocked()) {
@@ -1594,7 +1846,8 @@
         renderSubjectsList();
     }
 
-    function switchAdminTab(tab) {
+    async function switchAdminTab(tab) {
+        await syncAllFromFirestore();
         ["tabGroups", "tabStudents", "tabTests", "tabSubjects"].forEach(id => {
             document.getElementById(id).classList.remove("active");
         });
@@ -1624,12 +1877,21 @@
         }
     }
 
+    function syncBulkGradeWithGroup() {
+        const groupId = document.getElementById("admStudentGroup").value;
+        const grp = getGroups().find(g => g.id === groupId);
+        if (grp && grp.grade) {
+            document.getElementById("admStudentGrade").value = grp.grade;
+        }
+    }
+
     function populateGroupSelects() {
         const groups = getGroups();
         const studentGrpSel = document.getElementById("admStudentGroup");
         studentGrpSel.innerHTML = groups.map(g =>
             `<option value="${escapeHtml(g.id)}">${escapeHtml(g.name)} (${GRADE_LABELS[g.grade] || g.grade})</option>`
         ).join("");
+        syncBulkGradeWithGroup();
 
         const testGrpSel = document.getElementById("adminTestGroup");
         testGrpSel.innerHTML = `<option value="">Barcha guruhlar (sinf bo'yicha)</option>` + groups.map(g =>
@@ -1637,7 +1899,7 @@
         ).join("");
     }
 
-    function addGroup() {
+    async function addGroup() {
         const name = document.getElementById("newGroupName").value.trim();
         const grade = document.getElementById("newGroupGrade").value;
         const note = document.getElementById("newGroupNote").value.trim();
@@ -1653,13 +1915,15 @@
             return;
         }
 
-        groups.push({
+        const newGroup = {
             id: "grp_" + Date.now(),
             name,
             grade,
             note
-        });
+        };
+        groups.push(newGroup);
         saveGroups(groups);
+        await saveGroupToFirestore(newGroup);
 
         document.getElementById("newGroupName").value = "";
         document.getElementById("newGroupNote").value = "";
@@ -1669,9 +1933,10 @@
         alert("Guruh yaratildi!");
     }
 
-    function deleteGroup(groupId) {
+    async function deleteGroup(groupId) {
         const groups = getGroups().filter(g => g.id !== groupId);
         saveGroups(groups);
+        await deleteGroupFromFirestore(groupId);
         populateGroupSelects();
         renderGroupsTable();
         renderStudentsTable();
@@ -1722,48 +1987,121 @@
         }).join("");
     }
 
-    function addStudentToGroup() {
-        const name = document.getElementById("admStudentName").value.trim();
-        const groupId = document.getElementById("admStudentGroup").value;
-        const login = document.getElementById("admStudentLogin").value.trim();
-        const pass = document.getElementById("admStudentPass").value.trim();
+    function transliterateSlug(text) {
+        const map = {
+            "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"yo","ж":"j","з":"z","и":"i","й":"y",
+            "к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f",
+            "х":"x","ц":"ts","ч":"ch","ш":"sh","щ":"sh","ъ":"","ы":"i","ь":"","э":"e","ю":"yu","я":"ya",
+            "ў":"o","ғ":"g","қ":"q","ҳ":"h","‘":"'","’":"'","ʻ":"'"
+        };
+        return String(text || "")
+            .toLowerCase()
+            .split("")
+            .map(ch => map[ch] !== undefined ? map[ch] : ch)
+            .join("")
+            .replace(/[^a-z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "");
+    }
 
-        if (!name || !groupId || !login || !pass) {
-            alert("Ism-familiya, guruh, login va parolni kiriting.");
+    function generateUniqueLogin(fullName, existingLoginsSet, usedIndex) {
+        const parts = String(fullName).trim().split(/\s+/).filter(Boolean);
+        const firstPart = transliterateSlug(parts[0] || "oquvchi") || "oquvchi";
+        const lastInitial = parts[1] ? transliterateSlug(parts[1][0] || "") : "";
+        const base = lastInitial ? `${firstPart}_${lastInitial}` : firstPart;
+
+        let candidate = `${base}_${10 + usedIndex}`;
+        let counter = 10 + usedIndex;
+        while (existingLoginsSet.has(candidate.toLowerCase())) {
+            counter++;
+            candidate = `${base}_${counter}`;
+        }
+        existingLoginsSet.add(candidate.toLowerCase());
+        return candidate;
+    }
+
+    function generateUniquePassword(index, existingPasswordsSet) {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let pass = "";
+        for (let attempt = 0; attempt < 30; attempt++) {
+            let rand = "";
+            for (let i = 0; i < 4; i++) {
+                rand += chars[Math.floor(Math.random() * chars.length)];
+            }
+            pass = `v${index + 1}${rand}`;
+            if (!existingPasswordsSet.has(pass)) break;
+        }
+        existingPasswordsSet.add(pass);
+        return pass;
+    }
+
+    async function addStudentsBulk() {
+        const groupId = document.getElementById("admStudentGroup").value;
+        const selectedGrade = document.getElementById("admStudentGrade").value;
+        const rawText = document.getElementById("admBulkStudentsInput").value || "";
+
+        const names = rawText
+            .split(/\r?\n|;/)
+            .map(line => line.replace(/^\s*\d+[\).\-\s]+/, "").trim())
+            .filter(Boolean);
+
+        if (!groupId) {
+            alert("Avval guruhni tanlang.");
+            return;
+        }
+        if (!names.length) {
+            alert("Kamida bitta o'quvchi ism-familiyasini kiriting.");
             return;
         }
 
-        const groups = getGroups();
-        const grp = groups.find(g => g.id === groupId);
+        const grp = getGroups().find(g => g.id === groupId);
         if (!grp) {
-            alert("Avval guruh tanlang.");
+            alert("Tanlangan guruh topilmadi.");
             return;
         }
 
         const users = getUsers();
-        if (users.some(u => u.login.toLowerCase() === login.toLowerCase())) {
-            alert("Bu login allaqachon mavjud.");
-            return;
+        const existingLogins = new Set(users.map(u => String(u.login || "").toLowerCase()));
+        const existingPasswords = new Set(users.map(u => String(u.pass || "")));
+        const createdList = [];
+
+        for (let i = 0; i < names.length; i++) {
+            const fullName = names[i];
+            const login = generateUniqueLogin(fullName, existingLogins, users.length + i);
+            const pass = generateUniquePassword(users.length + i, existingPasswords);
+
+            const newUser = {
+                name: fullName,
+                groupId: grp.id,
+                groupName: grp.name,
+                grade: selectedGrade || grp.grade || "yuqori",
+                login,
+                pass,
+                results: []
+            };
+            users.push(newUser);
+            createdList.push(newUser);
+            await saveUserToFirestore(newUser);
         }
 
-        users.push({
-            name,
-            groupId: grp.id,
-            groupName: grp.name,
-            grade: grp.grade,
-            login,
-            pass,
-            results: []
-        });
         saveUsers(users);
+        document.getElementById("admBulkStudentsInput").value = "";
 
-        document.getElementById("admStudentName").value = "";
-        document.getElementById("admStudentLogin").value = "";
-        document.getElementById("admStudentPass").value = "";
+        const summaryEl = document.getElementById("bulkCreatedSummary");
+        summaryEl.innerHTML = `
+            <div style="padding:14px; border-radius:12px; background:rgba(234,179,8,0.10); border:1px solid rgba(250,204,21,0.35);">
+                <div style="color:#fde047; font-weight:700; margin-bottom:8px;">
+                    ${createdList.length} nafar o'quvchi "${escapeHtml(grp.name)}" guruhiga qo'shildi:
+                </div>
+                ${createdList.map((u, idx) => `
+                    <div style="font-size:13px; padding:4px 0; border-bottom:1px solid rgba(250,204,21,0.14);">
+                        <b>${idx + 1}. ${escapeHtml(u.name)}</b> — Login: <code style="color:#fde047;">${escapeHtml(u.login)}</code> | Parol: <code style="color:#34d399;">${escapeHtml(u.pass)}</code>
+                    </div>
+                `).join("")}
+            </div>
+        `;
 
         renderGroupsTable();
         renderStudentsTable();
-        alert(`O'quvchi "${grp.name}" guruhiga biriktirildi!`);
     }
 
     function populateAdminSubjectSelect() {
@@ -1772,7 +2110,7 @@
         sel.innerHTML = subjects.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join("");
     }
 
-    function addTeacherQuestion() {
+    async function addTeacherQuestion() {
         const groupId = document.getElementById("adminTestGroup").value;
         const grade = document.getElementById("adminTestGrade").value;
         const subject = document.getElementById("adminTestSubject").value;
@@ -1788,7 +2126,7 @@
 
         const grp = getGroups().find(g => g.id === groupId);
         const qs = getTeacherQuestions();
-        qs.push({
+        const newQ = {
             id: "q_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
             groupId: grp ? grp.id : "",
             groupName: grp ? grp.name : "",
@@ -1798,8 +2136,10 @@
             options,
             correctIndex,
             explanation
-        });
+        };
+        qs.push(newQ);
         saveTeacherQuestions(qs);
+        await saveQuestionToFirestore(newQ);
 
         document.getElementById("adminQuestionText").value = "";
         [0, 1, 2, 3].forEach(i => { document.getElementById(`opt${i}`).value = ""; });
@@ -1809,26 +2149,30 @@
         alert("Savol muvaffaqiyatli qo'shildi!");
     }
 
-    function deleteTeacherQuestion(id) {
+    async function deleteTeacherQuestion(id) {
         const targetId = String(id);
         const qs = getTeacherQuestions().filter(q => String(q.id) !== targetId);
         saveTeacherQuestions(qs);
+        await deleteQuestionFromFirestore(targetId);
 
         const users = getUsers();
-        let usersChanged = false;
-        users.forEach(u => {
+        for (const u of users) {
             if (u.seenQuestionIdsBySubject) {
+                let changed = false;
                 Object.keys(u.seenQuestionIdsBySubject).forEach(subj => {
                     const before = u.seenQuestionIdsBySubject[subj] || [];
                     const after = before.filter(sid => String(sid) !== targetId);
                     if (after.length !== before.length) {
                         u.seenQuestionIdsBySubject[subj] = after;
-                        usersChanged = true;
+                        changed = true;
                     }
                 });
+                if (changed) {
+                    await saveUserToFirestore(u);
+                }
             }
-        });
-        if (usersChanged) saveUsers(users);
+        }
+        saveUsers(users);
 
         renderTeacherQuestionsList();
     }
@@ -1859,7 +2203,7 @@
         const users = getUsers();
         const tbody = document.getElementById("studentsTableBody");
         if (!users.length) {
-            tbody.innerHTML = `<tr><td colspan="8" style="color:#a8a29e; text-align:center;">Hali guruhga biriktirilgan o'quvchilar yo'q.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="9" style="color:#a8a29e; text-align:center;">Hali guruhga biriktirilgan o'quvchilar yo'q.</td></tr>`;
             return;
         }
         tbody.innerHTML = users.map(u => {
@@ -1872,20 +2216,25 @@
                 <tr>
                     <td>${escapeHtml(u.name)}</td>
                     <td><span class="group-badge">${escapeHtml(grpInfo.name)}</span></td>
-                    <td>${escapeHtml(u.login)}</td>
+                    <td><code style="color:#fde047;">${escapeHtml(u.login)}</code></td>
+                    <td><code style="color:#34d399;">${escapeHtml(u.pass)}</code></td>
                     <td>${res.length}</td>
                     <td>${pts}</td>
                     <td><b>${studentPercent}%</b></td>
                     <td><b>${groupPercent}%</b></td>
-                    <td><button type="button" class="btn-danger-sm" onclick="deleteStudent('${escapeJs(u.login)}')">O'chirish</button></td>
+                    <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                        <button type="button" class="btn-edit-sm" onclick="openEditCredentialsModal('${escapeJs(u.login)}')">Login / Parol</button>
+                        <button type="button" class="btn-danger-sm" onclick="deleteStudent('${escapeJs(u.login)}')">O'chirish</button>
+                    </td>
                 </tr>
             `;
         }).join("");
     }
 
-    function deleteStudent(login) {
+    async function deleteStudent(login) {
         const users = getUsers().filter(u => u.login !== login);
         saveUsers(users);
+        await deleteUserFromFirestore(login);
         if (getCurrentUser()?.login === login) {
             setCurrentUser(null);
         }
@@ -1893,7 +2242,7 @@
         renderStudentsTable();
     }
 
-    function addSubject() {
+    async function addSubject() {
         const input = document.getElementById("newSubjectInput");
         const name = input.value.trim();
         if (!name) return;
@@ -1901,15 +2250,17 @@
         if (!subjects.includes(name)) {
             subjects.push(name);
             saveSubjects(subjects);
+            await saveSubjectToFirestore(name);
         }
         input.value = "";
         populateAdminSubjectSelect();
         renderSubjectsList();
     }
 
-    function deleteSubject(name) {
+    async function deleteSubject(name) {
         const subjects = getSubjects().filter(s => s !== name);
         saveSubjects(subjects);
+        await deleteSubjectFromFirestore(name);
         populateAdminSubjectSelect();
         renderSubjectsList();
     }
@@ -1938,7 +2289,35 @@
         return String(str).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
     }
 
-    (function initApp() {
+    Object.assign(window, {
+        openAccountNoticeModal,
+        closeAccountNoticeModal,
+        openEditCredentialsModal,
+        closeEditCredentialsModal,
+        saveStudentCredentials,
+        topMenuGo,
+        tizimgaKirish,
+        akkauntdanChiqish,
+        openDashboard,
+        testniBoshlash,
+        testniYakunlash,
+        toggleExplanation,
+        openVladerGate,
+        verifyVladerCode,
+        switchAdminTab,
+        syncBulkGradeWithGroup,
+        addGroup,
+        deleteGroup,
+        addStudentsBulk,
+        addTeacherQuestion,
+        deleteTeacherQuestion,
+        deleteStudent,
+        addSubject,
+        deleteSubject
+    });
+
+    (async function initApp() {
+        await syncAllFromFirestore();
         getSubjects();
         getGroups();
         const user = getCurrentUser();
